@@ -2,7 +2,7 @@ import database from "../database"; // Import the Singleton instance
 import { Order, OrderItem } from "./interface";
 
 export class OrderModel {
-  static async create(order: Order): Promise<Order> {
+  async create(order: Order): Promise<Order> {
     const sql =
       "INSERT INTO orders (customer_name, total_amount) VALUES ($1, $2) RETURNING *";
     const values = [order.userId, order.status];
@@ -15,7 +15,7 @@ export class OrderModel {
     }
   }
 
-  static async findById(id: number): Promise<Order | null> {
+  async findById(id: number): Promise<Order | null> {
     const sql = "SELECT * FROM orders WHERE id = $1";
     try {
       const result = await database.query(sql, [id]);
@@ -26,7 +26,7 @@ export class OrderModel {
     }
   }
 
-  static async findAll(): Promise<Order[]> {
+  async findAll(): Promise<Order[]> {
     const sql = "SELECT * FROM orders";
     try {
       const result = await database.query(sql);
@@ -37,7 +37,7 @@ export class OrderModel {
     }
   }
 
-  static async update(id: number, order: Order): Promise<Order | null> {
+  async update(id: number, order: Order): Promise<Order | null> {
     const sql =
       "UPDATE orders SET customer_name = $1, total_amount = $2 WHERE id = $3 RETURNING *";
     const values = [order.userId, order.status, id];
@@ -50,7 +50,7 @@ export class OrderModel {
     }
   }
 
-  static async delete(id: number): Promise<boolean> {
+  async delete(id: number): Promise<boolean> {
     const sql = "DELETE FROM orders WHERE id = $1";
     try {
       await database.query(sql, [id]);
@@ -62,8 +62,8 @@ export class OrderModel {
   }
 }
 
-class OrderItemModel {
-  static async create(orderItem: OrderItem): Promise<OrderItem> {
+export class OrderItemModel {
+  async create(orderItem: OrderItem): Promise<OrderItem> {
     const sql =
       "INSERT INTO order_items (order_id, product_name, quantity, price) VALUES ($1, $2, $3, $4) RETURNING *";
     const values = [
@@ -81,7 +81,7 @@ class OrderItemModel {
     }
   }
 
-  static async findByOrderId(orderId: number): Promise<OrderItem[]> {
+  async findByOrderId(orderId: number): Promise<OrderItem[]> {
     const sql = "SELECT * FROM order_items WHERE order_id = $1";
     try {
       const result = await database.query(sql, [orderId]);
@@ -95,10 +95,7 @@ class OrderItemModel {
     }
   }
 
-  static async update(
-    id: number,
-    orderItem: OrderItem,
-  ): Promise<OrderItem | null> {
+  async update(id: number, orderItem: OrderItem): Promise<OrderItem | null> {
     const sql =
       "UPDATE order_items SET product_name = $1, quantity = $2, price = $3 WHERE id = $4 RETURNING *";
     const values = [
@@ -116,7 +113,7 @@ class OrderItemModel {
     }
   }
 
-  static async delete(id: number): Promise<boolean> {
+  async delete(id: number): Promise<boolean> {
     const sql = "DELETE FROM order_items WHERE id = $1";
     try {
       await database.query(sql, [id]);
