@@ -25,7 +25,16 @@ createdb full_stack_dev
 psql -U postgres -d full_stack_dev
 CREATE ROLE full_stack_user WITH LOGIN PASSWORD 'password123';
 GRANT ALL PRIVILEGES ON DATABASE full_stack_dev TO full_stack_user;
-sudo db-migrate up
+ALTER USER full_stack_user WITH SUPERUSER;
+db-migrate up
+
+
+createdb full_stack_test
+psql -U postgres -d full_stack_test
+CREATE ROLE full_stack_user WITH LOGIN PASSWORD 'password123';
+GRANT ALL PRIVILEGES ON DATABASE full_stack_dev TO full_stack_user;
+ALTER USER full_stack_user WITH SUPERUSER;
+db-migrate up --env test
 ```
 
 ### Software Design Patterns
