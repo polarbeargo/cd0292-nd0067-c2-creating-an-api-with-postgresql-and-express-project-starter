@@ -4,8 +4,8 @@ import { Order, OrderItem } from "./interface";
 export class OrderModel {
   async create(order: Order): Promise<Order> {
     const sql =
-      "INSERT INTO orders (customer_name, total_amount) VALUES ($1, $2) RETURNING *";
-    const values = [order.userId, order.status];
+      "INSERT INTO orders (id, user_id, total_amount, customer_name, status) VALUES ($1, $2, $3, $4, $5) RETURNING *";
+    const values = [order.id, order.userId, order.totalAmount, order.customerName, order.status];
     try {
       const result = await database.query(sql, values); // Use the Singleton instance to query
       return result.rows[0];

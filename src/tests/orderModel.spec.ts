@@ -11,6 +11,8 @@ describe("OrderModel", () => {
     testOrder = {
       id: 0,
       userId: 1,
+      totalAmount: 20.0,
+      customerName: "Test User",
       status: "pending",
     };
     const createdOrder = await orderModel.create(testOrder);
@@ -25,16 +27,6 @@ describe("OrderModel", () => {
     };
     const createdOrderItem = await orderItemModel.create(testOrderItem);
     testOrderItem.id = createdOrderItem.id;
-  });
-
-  afterAll(async () => {
-    // Clean up the test database
-    if (testOrderItem && testOrderItem.id) {
-      await orderItemModel.delete(testOrderItem.id); // Assuming the order item has an id property
-    }
-    if (testOrder && testOrder.id) {
-      await orderModel.delete(testOrder.id);
-    }
   });
 
   it("should have a create method", () => {
@@ -59,8 +51,10 @@ describe("OrderModel", () => {
 
   it("create method should add an order", async () => {
     const newOrder: Order = {
-      id: 0,
+      id: 1,
       userId: 2,
+      totalAmount: 30.0,
+      customerName: "New User",
       status: "completed",
     };
     const result = await orderModel.create(newOrder);
@@ -85,6 +79,8 @@ describe("OrderModel", () => {
     const updatedOrder: Order = {
       id: testOrder.id,
       userId: 3,
+      totalAmount: 40.0,
+      customerName: "Updated User",
       status: "shipped",
     };
     const result = await orderModel.update(testOrder.id, updatedOrder);
@@ -95,5 +91,15 @@ describe("OrderModel", () => {
   it("delete method should remove the order", async () => {
     const result = await orderModel.delete(testOrder.id);
     expect(result).toBe(true);
+  });
+
+  afterAll(async () => {
+    // Clean up the test database
+    if (testOrderItem && testOrderItem.id) {
+      await orderItemModel.delete(testOrderItem.id); // Assuming the order item has an id property
+    }
+    if (testOrder && testOrder.id) {
+      await orderModel.delete(testOrder.id);
+    }
   });
 });
