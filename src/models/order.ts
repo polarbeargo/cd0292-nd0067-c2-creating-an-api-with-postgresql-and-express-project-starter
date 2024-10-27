@@ -5,7 +5,13 @@ export class OrderModel {
   async create(order: Order): Promise<Order> {
     const sql =
       "INSERT INTO orders (id, user_id, total_amount, customer_name, status) VALUES ($1, $2, $3, $4, $5) RETURNING *";
-    const values = [order.id, order.userId, order.totalAmount, order.customerName, order.status];
+    const values = [
+      order.id,
+      order.user_id,
+      order.totalAmount,
+      order.customerName,
+      order.status,
+    ];
     try {
       const result = await database.query(sql, values); // Use the Singleton instance to query
       return result.rows[0];
@@ -40,7 +46,7 @@ export class OrderModel {
   async update(id: number, order: Order): Promise<Order | null> {
     const sql =
       "UPDATE orders SET customer_name = $1, total_amount = $2 WHERE id = $3 RETURNING *";
-    const values = [order.userId, order.status, id];
+    const values = [order.user_id, order.status, id];
     try {
       const result = await database.query(sql, values);
       return result.rows[0] || null;

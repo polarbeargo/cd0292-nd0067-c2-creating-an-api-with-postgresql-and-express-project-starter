@@ -22,7 +22,8 @@ export class UserModel {
   async create(user: User): Promise<User> {
     try {
       const query =
-        "INSERT INTO users (name, email, password) VALUES ($1, $2, $3) RETURNING *";
+        "INSERT INTO users (id, name, email, password) VALUES ($1, $2, $3, $4) RETURNING *";
+
       const hash = bcrypt.hashSync(
         user.password + pepper,
         parseInt(saltRounds as string),
