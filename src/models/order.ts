@@ -4,9 +4,8 @@ import { Order, OrderItem } from "./interface";
 export class OrderModel {
   async create(order: Order): Promise<Order> {
     const sql =
-      "INSERT INTO orders (id, user_id, total_amount, customer_name, status) VALUES ($1, $2, $3, $4, $5) RETURNING *";
+      "INSERT INTO orders ( user_id, total_amount, customer_name, status) VALUES ($1, $2, $3, $4) RETURNING *";
     const values = [
-      order.id,
       order.user_id,
       order.totalAmount,
       order.customerName,

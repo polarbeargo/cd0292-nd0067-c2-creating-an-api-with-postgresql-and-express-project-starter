@@ -7,7 +7,7 @@ CREATE TABLE users (
 );
 
 -- Insert a user
-INSERT INTO users (id, username, email, password) VALUES (1, 'John Doe', 'user@example.com', 'hashed_password');
-INSERT INTO users (id, username, email, password) VALUES (2, 'Jane Smith', 'jane@example.com', 'hashed_password');
-INSERT INTO users (id, username, email, password) VALUES (3, 'Alice Johnson', 'alice@example.com', 'hashed_password');
+INSERT INTO users (username, email, password) VALUES ( 'John Doe', 'user@example.com', 'hashed_password');
+INSERT INTO users (username, email, password) VALUES ( 'Jane Smith', 'jane@example.com', 'hashed_password');
+INSERT INTO users (username, email, password) VALUES ('Alice Johnson', 'alice@example.com', 'hashed_password');
 

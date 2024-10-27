@@ -1,33 +1,13 @@
 import { OrderModel, OrderItemModel } from "../models/order";
 import { OrderItem } from "../models/interface";
 import { Order } from "../models/interface";
+import { UserModel } from "../models/user";
 describe("OrderModel", () => {
+  const userModel = new UserModel();
   const orderModel = new OrderModel();
   const orderItemModel = new OrderItemModel();
   let testOrderItem: OrderItem;
   let testOrder: Order;
-
-  beforeAll(async () => {
-    testOrder = {
-      id: 0,
-      userId: 1,
-      totalAmount: 20.0,
-      customerName: "Test User",
-      status: "pending",
-    };
-    const createdOrder = await orderModel.create(testOrder);
-    testOrder.id = createdOrder.id;
-
-    testOrderItem = {
-      id: 0,
-      orderId: testOrder.id,
-      productId: 1,
-      quantity: 2,
-      price: 10.0,
-    };
-    const createdOrderItem = await orderItemModel.create(testOrderItem);
-    testOrderItem.id = createdOrderItem.id;
-  });
 
   it("should have a create method", () => {
     expect(orderModel.create).toBeDefined();
@@ -51,14 +31,14 @@ describe("OrderModel", () => {
 
   it("create method should add an order", async () => {
     const newOrder: Order = {
-      id: 1,
-      userId: 2,
+      id: 5,
+      user_id: 4,
       totalAmount: 30.0,
-      customerName: "New User",
+      customerName: "User Name",
       status: "completed",
     };
     const result = await orderModel.create(newOrder);
-    expect(result.userId).toEqual(newOrder.userId);
+    expect(result.user_id).toEqual(newOrder.user_id);
     expect(result.status).toEqual(newOrder.status);
   });
 
@@ -78,7 +58,7 @@ describe("OrderModel", () => {
   it("update method should modify the order", async () => {
     const updatedOrder: Order = {
       id: testOrder.id,
-      userId: 3,
+      user_id: 1,
       totalAmount: 40.0,
       customerName: "Updated User",
       status: "shipped",
@@ -93,13 +73,4 @@ describe("OrderModel", () => {
     expect(result).toBe(true);
   });
 
-  afterAll(async () => {
-    // Clean up the test database
-    if (testOrderItem && testOrderItem.id) {
-      await orderItemModel.delete(testOrderItem.id); // Assuming the order item has an id property
-    }
-    if (testOrder && testOrder.id) {
-      await orderModel.delete(testOrder.id);
-    }
-  });
 });

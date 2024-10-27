@@ -7,18 +7,13 @@ describe("ProductModel", () => {
 
   beforeAll(async () => {
     testProduct = {
-      id: 0,
+      id: 1,
       name: "Test Product",
       price: 100,
       description: "This is a test product",
     };
-    const createdProduct = await productModel.create(testProduct);
-    testProduct.id = createdProduct.id;
-  });
-
-  afterAll(async () => {
-    // Clean up the test database
-    await productModel.delete(testProduct.id);
+    await productModel.create(testProduct);
+  
   });
 
   it("should have an index method", () => {
@@ -45,7 +40,7 @@ describe("ProductModel", () => {
     const newProduct: Product = {
       id: 1,
       name: "New Product",
-      price: 200,
+      price: 200.00,
       description: "This is a new product",
     };
     const result = await productModel.create(newProduct);
@@ -67,9 +62,9 @@ describe("ProductModel", () => {
 
   it("update method should modify the product", async () => {
     const updatedProduct: Product = {
-      id: testProduct.id,
+      id: 2,
       name: "Updated Product",
-      price: 150,
+      price: 170.00,
       description: "This is an updated product",
     };
     const result = await productModel.update(testProduct.id, updatedProduct);
@@ -81,5 +76,10 @@ describe("ProductModel", () => {
     const result = await productModel.delete(testProduct.id);
     expect(result).toBeDefined();
     expect(result.id).toEqual(testProduct.id);
+  });
+
+  afterAll(async () => {
+    // Clean up the test database
+    await productModel.delete(testProduct.id);
   });
 });

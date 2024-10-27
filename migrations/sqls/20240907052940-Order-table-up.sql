@@ -8,6 +8,6 @@ CREATE TABLE orders (
 );
 
 -- Insert an order for the newly created user (assuming the user_id is 2)
-INSERT INTO orders (id, user_id, total_amount, customer_name, status) VALUES (1, 1, 100.00, 'John Doe', 'pending');
-INSERT INTO orders (id, user_id, total_amount, customer_name, status) VALUES (2, 2, 50.00, 'Jane Smith', 'completed'); 
-INSERT INTO orders (id, user_id, total_amount, customer_name, status) VALUES (3, 3, 75.00, 'Alice Johnson', 'completed');
+INSERT INTO orders ( user_id, total_amount, customer_name, status) VALUES ( 4, 100.00, 'John Doe', 'pending');
+INSERT INTO orders ( user_id, total_amount, customer_name, status) VALUES ( 5, 50.00, 'Jane Smith', 'completed'); 
+INSERT INTO orders ( user_id, total_amount, customer_name, status) VALUES ( 6, 75.00, 'Alice Johnson', 'completed');

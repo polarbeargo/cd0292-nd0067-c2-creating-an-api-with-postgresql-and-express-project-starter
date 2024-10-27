@@ -22,24 +22,29 @@ export class UserModel {
   async create(user: User): Promise<User> {
     try {
       const query =
-        "INSERT INTO users (id, name, email, password) VALUES ($1, $2, $3, $4) RETURNING *";
+        "INSERT INTO users (username, email, password) VALUES ($1, $2, $3) RETURNING *";
 
       const hash = bcrypt.hashSync(
         user.password + pepper,
         parseInt(saltRounds as string),
       );
-      const values = [user.username, user.email, hash];
+
+      const values = [user.username, user.email, hash ];
       const result = await database.query(query, values);
-      return result.rows[0];
+      const u = result.rows[0]
+
+      database.end()
+
+      return u;
     } catch (error) {
-      throw new Error("Failed to create user");
+      throw new Error(`unable create user (${user.username}): ${error}`);
     }
   }
-  async authenticate(email: string, password: string): Promise<User | null> {
+  async authenticate(username: string, password: string): Promise<User | null> {
     try {
-      const query = "SELECT password FROM users WHERE email = $1";
-      const result = await database.query(query, [email]);
-
+      const query = "SELECT password FROM users WHERE username = $1";
+      const result = await database.query(query, [username]);
+      console.log(password+pepper)
       if (result.rows.length) {
         const user = result.rows[0];
 
