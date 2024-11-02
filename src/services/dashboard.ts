@@ -39,7 +39,7 @@ export class DashboardQueries {
     }
   }
 
-  // Get all users that have made orders
+  // Query to get the 5 most expensive products
   async fiveMostExpensive(): Promise<{ name: string; price: number }[]> {
     try {
       //@ts-ignore
