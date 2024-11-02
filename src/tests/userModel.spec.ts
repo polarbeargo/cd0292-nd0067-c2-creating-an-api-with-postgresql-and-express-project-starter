@@ -6,7 +6,6 @@ import bcrypt from "bcrypt";
 const userModel = new UserModel();
 
 describe("UserModel", () => {
-  
   beforeEach(() => {
     // Mock the database methods
     spyOn(database, "query").and.returnValue(undefined);
@@ -38,17 +37,16 @@ describe("UserModel", () => {
 
   it("should create a new user", async () => {
     const result = await userModel.create({
-      // You might want to let the database handle the ID if it's auto-incremented
-      id: 4,
+      id: 1,
       username: "User Name",
       email: "user@example.com",
       password: "12345",
     });
     expect(result).toEqual({
-      id: 4, // Adjust this if your database generates the ID
+      id: 1,
       username: "User Name",
       email: "user@example.com",
-      password: "12345", // Note: In practice, you should hash passwords
+      password: "12345",
     });
   });
 
@@ -57,7 +55,6 @@ describe("UserModel", () => {
     expect(users).toBeInstanceOf(Array);
     expect(users.length).toBeGreaterThan(0);
   });
-
 
   afterAll(async () => {
     // Clean up the database after finishing the test run

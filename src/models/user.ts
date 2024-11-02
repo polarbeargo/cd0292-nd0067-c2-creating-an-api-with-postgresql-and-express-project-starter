@@ -29,11 +29,11 @@ export class UserModel {
         parseInt(saltRounds as string),
       );
 
-      const values = [user.username, user.email, hash ];
+      const values = [user.username, user.email, hash];
       const result = await database.query(query, values);
-      const u = result.rows[0]
+      const u = result.rows[0];
 
-      database.end()
+      database.end();
 
       return u;
     } catch (error) {
@@ -44,7 +44,7 @@ export class UserModel {
     try {
       const query = "SELECT password FROM users WHERE username = $1";
       const result = await database.query(query, [username]);
-      console.log(password+pepper)
+      console.log(password + pepper);
       if (result.rows.length) {
         const user = result.rows[0];
 

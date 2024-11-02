@@ -13,7 +13,6 @@ describe("ProductModel", () => {
       description: "This is a test product",
     };
     await productModel.create(testProduct);
-  
   });
 
   it("should have an index method", () => {
@@ -40,7 +39,7 @@ describe("ProductModel", () => {
     const newProduct: Product = {
       id: 1,
       name: "New Product",
-      price: 200.00,
+      price: 200.0,
       description: "This is a new product",
     };
     const result = await productModel.create(newProduct);
@@ -64,7 +63,7 @@ describe("ProductModel", () => {
     const updatedProduct: Product = {
       id: 2,
       name: "Updated Product",
-      price: 170.00,
+      price: 170.0,
       description: "This is an updated product",
     };
     const result = await productModel.update(testProduct.id, updatedProduct);
