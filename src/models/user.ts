@@ -31,15 +31,20 @@ export class UserModel {
 
       const values = [user.username, user.email, hash];
       const result = await database.query(query, values);
-      const u = result.rows[0];
+      console.log("Result", result);
 
-      database.end();
+      if (!result.rows || result.rows.length === 0) {
+        throw new Error("No user created");
+      }
+
+      const u = result.rows[0];
 
       return u;
     } catch (error) {
       throw new Error(`unable create user (${user.username}): ${error}`);
     }
   }
+
   async authenticate(username: string, password: string): Promise<User | null> {
     try {
       const query = "SELECT password FROM users WHERE username = $1";

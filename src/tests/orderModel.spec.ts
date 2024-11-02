@@ -31,15 +31,18 @@ describe("OrderModel", () => {
 
   it("create method should add an order", async () => {
     const newOrder: Order = {
-      id: 5,
-      user_id: 4,
+      id: 1,
+      user_id: 1,
       totalAmount: 30.0,
       customerName: "User Name",
       status: "completed",
     };
     const result = await orderModel.create(newOrder);
-    expect(result.user_id).toEqual(newOrder.user_id);
-    expect(result.status).toEqual(newOrder.status);
+    expect(result).not.toBeNull();
+    if (result !== null) {
+      expect(result.user_id).toEqual(newOrder.user_id);
+      expect(result.status).toEqual(newOrder.status);
+    }
   });
 
   it("findById method should return the correct order", async () => {
@@ -72,5 +75,4 @@ describe("OrderModel", () => {
     const result = await orderModel.delete(testOrder.id);
     expect(result).toBe(true);
   });
-
 });

@@ -2,7 +2,7 @@ import database from "../database"; // Import the Singleton instance
 import { Order, OrderItem } from "./interface";
 
 export class OrderModel {
-  async create(order: Order): Promise<Order> {
+  async create(order: Order): Promise<Order | null> {
     const sql =
       "INSERT INTO orders ( user_id, total_amount, customer_name, status) VALUES ($1, $2, $3, $4) RETURNING *";
     const values = [
