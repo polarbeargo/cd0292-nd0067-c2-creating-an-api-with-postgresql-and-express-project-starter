@@ -11,9 +11,29 @@ This project use the following libraries:
 - jsonwebtoken from npm for working with JWTs
 - jasmine from npm for testing
 
-### Setup database migration
+## Project Setup
+
+```
+
+```
+
+## Setup database migration
 
 - Implement [database.json](./database.json) and [.env](.env) file
+
+.env file settings:
+```
+ENV=test
+POSTGRES_HOST=127.0.0.1
+POSTGRES_DB=full_stack_dev
+POSTGRES_USER=full_stack_user
+POSTGRES_PASSWORD=password123
+BCRYPT_PASSWORD=speak-friend-and-enter
+SALT_ROUNDS=10
+POSTGRES_TEST_DB=full_stack_test
+```
+
+- Create the database and run the migration
 
 ```
 db-migrate create users --sql-file
@@ -34,6 +54,34 @@ psql -U postgres -d full_stack_test
 CREATE ROLE full_stack_user WITH LOGIN PASSWORD 'password123';
 GRANT ALL PRIVILEGES ON DATABASE full_stack_test TO full_stack_user;
 ALTER USER full_stack_user WITH SUPERUSER;
+db-migrate up --env test
+
+```
+
+- Delete all table inside the database
+
+```
+psql -U postgres -d full_stack_test
+\dt
+
+DO $$ DECLARE
+    r RECORD;
+BEGIN
+    FOR r IN (SELECT tablename FROM pg_tables WHERE schemaname = 'public') LOOP
+        EXECUTE 'DROP TABLE IF EXISTS ' || quote_ident(r.tablename) || ' CASCADE';
+    END LOOP;
+END $$;
+```
+
+- Reset full_stack_test database while perform db migrate to insert dummy data.
+
+```
+db-migrate -e test reset
+```
+
+- Run the migration
+
+```
 db-migrate up --env test
 ```
 
