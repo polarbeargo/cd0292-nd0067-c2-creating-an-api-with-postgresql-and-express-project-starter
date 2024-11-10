@@ -44,7 +44,7 @@ describe("ProductModel", () => {
     };
     const result = await productModel.create(newProduct);
     expect(result.name).toEqual(newProduct.name);
-    expect(result.price).toEqual(newProduct.price);
+    expect(Number(result.price)).toEqual(newProduct.price);
   });
 
   it("index method should return a list of products", async () => {
@@ -68,7 +68,7 @@ describe("ProductModel", () => {
     };
     const result = await productModel.update(testProduct.id, updatedProduct);
     expect(result.name).toEqual(updatedProduct.name);
-    expect(result.price).toEqual(updatedProduct.price);
+    expect(Number(result.price)).toEqual(updatedProduct.price);
   });
 
   it("delete method should remove the product", async () => {
