@@ -101,7 +101,7 @@ db-migrate up --env test
 
 ### Software Design Patterns
 
-In this project, I have used the `Singleton` and the `Reactor` design patterns.
+In this project, We have used the `Singleton` and the `Reactor` design patterns.
 
 `Singleton Pattern` restricts the instantiation of a class to a single instance and provides a global point of access to that instance. By ensuring that only one instance of the database connection exists, the Singleton Pattern prevents the overhead of creating multiple connections. This is important because each connection can consume resources and time.
 
