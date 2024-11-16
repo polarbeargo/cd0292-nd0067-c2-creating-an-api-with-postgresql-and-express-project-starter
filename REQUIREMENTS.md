@@ -16,7 +16,11 @@ These are the notes from a meeting with the frontend developer that describe wha
   - Description: Create a new product.
   - Authorization: Token required.
 - update: [PUT] /products/:id
+  - Description: Update an existing product by ID.
+  - Authorization: Token required.
 - delete: [DELETE] /products/:id
+  - Description: Delete a product by ID.
+  - Authorization: Token required.
 
 ### Users
 
