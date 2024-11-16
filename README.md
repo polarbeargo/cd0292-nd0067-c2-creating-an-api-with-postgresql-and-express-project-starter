@@ -13,8 +13,21 @@ This project use the following libraries:
 
 ## Project Setup
 
-```
+- Clone the repository
 
+```
+git clone https://github.com/polarbeargo/nd0067-c2-creating-an-api-with-postgresql-and-express-project-starter.git
+```
+- Change directory to the project folder
+```
+cd nd0067-c2-creating-an-api-with-postgresql-and-express-project-starter
+```
+- Install the dependencies
+
+```
+npm run install 
+or 
+yarn install.
 ```
 
 ## Setup database migration
@@ -22,6 +35,7 @@ This project use the following libraries:
 - Implement [database.json](./database.json) and [.env](.env) file
 
 .env file settings:
+
 ```
 ENV=test
 POSTGRES_HOST=127.0.0.1
