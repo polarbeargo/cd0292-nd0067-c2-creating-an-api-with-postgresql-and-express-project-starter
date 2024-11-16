@@ -51,11 +51,25 @@ const destroy = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
+const authenticate = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const user = await userModel.authenticate(req.params.id, req.body.password);
+    res.json(user);
+  } catch (error) {
+    next(error);
+  }
+};
+
 const userRouteHandler = (app: express.Application) => {
   app.get("/users", verifyAuthToken, index);
   app.get("/users/:id", verifyAuthToken, show);
   app.post("/users", create);
   app.put("/users/:id", verifyAuthToken, update);
+  app.get("/users/:id/authenticate", authenticate);
   app.delete("/users/:id", verifyAuthToken, destroy);
 };
 
