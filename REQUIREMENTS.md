@@ -6,28 +6,75 @@ These are the notes from a meeting with the frontend developer that describe wha
 
 ## API Endpoints
 
-#### Products
+### Products
 
-- Index
-- Show
-- Create [token required]
-- [OPTIONAL] Top 5 most popular products
-- [OPTIONAL] Products by category (args: product category)
+- index: [GET] /products/:id
+  - Description: Retrieve a specific product by ID.
+- show: [GET] /products
+  - Description: Retrieve a list of all products.
+- create: [POST] /products
+  - Description: Create a new product.
+  - Authorization: Token required.
+- update: [PUT] /products/:id
+- delete: [DELETE] /products/:id
 
-#### Users
+### Users
 
-- Index [token required]
-- Show [token required]
-- Create N[token required]
+- index: [GET] /users/:id
+  - Description: Retrieve a specific user by ID.
+  - Authorization: Token required.
+- show: [GET] /users
+  - Description: Retrieve a list of all users.
+  - Authorization: Token required.
 
-#### Orders
+- create: [POST] /users
 
-- Current Order by user [args: user id](token required)
-- [OPTIONAL] Completed Orders by user [args: user id](token required)
+  - Description: Create a new user.
+
+- authenticate: [GET] users/:id/authenticate
+  - Description: Authenticate a user by ID.
+  - Authorization: Token required.
+
+- update: [PUT] /users/:id
+  - Description: Update an existing user by ID.
+  - Authorization: Token required.
+
+- delete: [DELETE] /users/:id
+  - Description: Delete a user by ID.
+  - Authorization: Token required.
+
+### Orders
+
+- show: [GET] /orders
+  - Description: Retrieve a list of all orders.
+
+- index: [GET] /orders/:id
+  - Description: Retrieve a specific order by ID.
+
+- create: [POST] /orders
+  - Description: Create a new order.
+  - Authorization: Token required.
+
+- update: [PUT] /orders/:id
+  - Description: Update an existing order by ID.
+  - Authorization: Token required.
+
+- delete: [DELETE] /orders/:id
+  - Description: Delete an order by ID.
+  - Authorization: Token required.
+
+### Dashboard
+
+- productsInOrders: [GET] /products_in_orders
+  - Description: Retrieve products that are currently in orders.
+- usersWithOrders: [GET] /users-with-orders
+  - Description: Retrieve users who have placed orders.
+- fiveMostExpensive [GET] /five-most-expensive
+  - Description: Retrieve the top 5 most expensive products.
 
 ## Data Shapes
 
-#### Product
+### Product
 
 ```
 - id SERIAL PRIMARY KEY,
