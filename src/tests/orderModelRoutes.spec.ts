@@ -2,6 +2,56 @@ import request from "supertest";
 import express from "express";
 import orderRouteHandler from "../handlers/orderRouteHandler";
 import { OrderModel } from "../models/order";
+import { jest } from "@jest/globals";
+
+// Mock OrderModel
+class MockOrderModel {
+  findAll() {
+    return Promise.resolve([
+      {
+        id: 1,
+        user_id: 1,
+        totalAmount: 30.0,
+        customerName: "User Name",
+        status: "completed",
+      },
+    ]);
+  }
+
+  findById() {
+    return Promise.resolve({
+      id: 1,
+      user_id: 1,
+      totalAmount: 30.0,
+      customerName: "User Name",
+      status: "completed",
+    });
+  }
+
+  create() {
+    return Promise.resolve({
+      id: 1,
+      user_id: 1,
+      totalAmount: 30.0,
+      customerName: "User Name",
+      status: "completed",
+    });
+  }
+
+  update() {
+    return Promise.resolve({
+      id: 1,
+      user_id: 1,
+      totalAmount: 30.0,
+      customerName: "User Name",
+      status: "completed",
+    });
+  }
+
+  delete() {
+    return Promise.resolve(true);
+  }
+}
 
 describe("Order Routes", () => {
   let app: express.Application;
@@ -9,50 +59,13 @@ describe("Order Routes", () => {
   beforeEach(() => {
     app = express();
     app.use(express.json()); // Middleware to parse JSON
-    orderRouteHandler(app); // Register the routes
 
-    // Mocking the OrderModel methods
-    spyOn(OrderModel.prototype, "findAll").and.returnValue(
-      Promise.resolve([
-        {
-          id: 1,
-          user_id: 1,
-          totalAmount: 30.0,
-          customerName: "User Name",
-          status: "completed",
-        },
-      ]),
-    );
-    spyOn(OrderModel.prototype, "findById").and.returnValue(
-      Promise.resolve({
-        id: 1,
-        user_id: 1,
-        totalAmount: 30.0,
-        customerName: "User Name",
-        status: "completed",
-      }),
-    );
-    spyOn(OrderModel.prototype, "create").and.returnValue(
-      Promise.resolve({
-        id: 1,
-        user_id: 1,
-        totalAmount: 30.0,
-        customerName: "User Name",
-        status: "completed",
-      }),
-    );
-    spyOn(OrderModel.prototype, "update").and.returnValue(
-      Promise.resolve({
-        id: 1,
-        user_id: 1,
-        totalAmount: 30.0,
-        customerName: "User Name",
-        status: "completed",
-      }),
-    );
-    spyOn(OrderModel.prototype, "delete").and.returnValue(
-      Promise.resolve(true),
-    );
+    // Replace the OrderModel with the mock
+    jest.mock("../models/order", () => ({
+      OrderModel: MockOrderModel,
+    }));
+
+    orderRouteHandler(app); // Register the routes
   });
 
   it("GET /orders should return a list of orders", async () => {
@@ -130,12 +143,16 @@ describe("Order Routes", () => {
   });
 
   it("should handle errors gracefully", async () => {
-    spyOn(OrderModel.prototype, "findAll").and.callFake(() =>
-      Promise.reject(new Error("Database error")),
-    );
+    // Override the findAll method to simulate an error
+    const originalFindAll = MockOrderModel.prototype.findAll;
+    MockOrderModel.prototype.findAll = () =>
+      Promise.reject(new Error("Database error"));
 
     const response = await request(app).get("/orders");
 
     expect(response.status).toBe(500);
+
+    // Restore the original method
+    MockOrderModel.prototype.findAll = originalFindAll;
   });
 });

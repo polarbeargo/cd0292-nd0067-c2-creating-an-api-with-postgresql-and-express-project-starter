@@ -2,13 +2,20 @@ import { UserModel } from "../models/user";
 import database from "../database";
 import { User } from "../models/interface";
 import bcrypt from "bcrypt";
+import { jest } from "@jest/globals";
+
+// Create a mock implementation of the database query method
+const mockDatabase: { query: jest.Mock<any> } = {
+  query: jest.fn(),
+};
 
 const userModel = new UserModel();
 
 describe("UserModel", () => {
   beforeEach(() => {
-    // Mock the database methods
-    spyOn(database, "query").and.returnValue(undefined);
+    // Reset the mock before each test
+    mockDatabase.query.mockReset();
+    database.query = mockDatabase.query as unknown as typeof database.query; // Replace the original database query with the mock
   });
 
   it("should have an index method", () => {
@@ -36,6 +43,18 @@ describe("UserModel", () => {
   });
 
   it("should create a new user", async () => {
+    // Mock the create method's database query response
+    mockDatabase.query.mockResolvedValueOnce({
+      rows: [
+        {
+          id: 1,
+          username: "User Name",
+          email: "user@example.com",
+          password: "hashed_password", // Assuming password is hashed
+        },
+      ],
+    });
+
     const result = await userModel.create({
       id: 1,
       username: "User Name",
@@ -46,11 +65,23 @@ describe("UserModel", () => {
       id: 1,
       username: "User Name",
       email: "user@example.com",
-      password: "12345",
+      password: "hashed_password", // Adjust according to your actual implementation
     });
   });
 
   it("should return all users", async () => {
+    // Mock the index method's database query response
+    mockDatabase.query.mockResolvedValueOnce({
+      rows: [
+        {
+          id: 1,
+          username: "User Name",
+          email: "user@example.com",
+          password: "hashed_password",
+        },
+      ],
+    });
+
     const users = await userModel.index();
     expect(users).toBeInstanceOf(Array);
     expect(users.length).toBeGreaterThan(0);
