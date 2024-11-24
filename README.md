@@ -18,15 +18,18 @@ This project use the following libraries:
 ```
 git clone https://github.com/polarbeargo/nd0067-c2-creating-an-api-with-postgresql-and-express-project-starter.git
 ```
+
 - Change directory to the project folder
+
 ```
 cd nd0067-c2-creating-an-api-with-postgresql-and-express-project-starter
 ```
+
 - Install the dependencies
 
 ```
-npm run install 
-or 
+npm run install
+or
 yarn install.
 ```
 

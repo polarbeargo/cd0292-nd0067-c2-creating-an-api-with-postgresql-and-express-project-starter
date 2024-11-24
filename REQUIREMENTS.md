@@ -28,6 +28,7 @@ These are the notes from a meeting with the frontend developer that describe wha
   - Description: Retrieve a specific user by ID.
   - Authorization: Token required.
 - show: [GET] /users
+
   - Description: Retrieve a list of all users.
   - Authorization: Token required.
 
@@ -36,10 +37,12 @@ These are the notes from a meeting with the frontend developer that describe wha
   - Description: Create a new user.
 
 - authenticate: [GET] users/:id/authenticate
+
   - Description: Authenticate a user by ID.
   - Authorization: Token required.
 
 - update: [PUT] /users/:id
+
   - Description: Update an existing user by ID.
   - Authorization: Token required.
 
@@ -50,16 +53,20 @@ These are the notes from a meeting with the frontend developer that describe wha
 ### Orders
 
 - show: [GET] /orders
+
   - Description: Retrieve a list of all orders.
 
 - index: [GET] /orders/:id
+
   - Description: Retrieve a specific order by ID.
 
 - create: [POST] /orders
+
   - Description: Create a new order.
   - Authorization: Token required.
 
 - update: [PUT] /orders/:id
+
   - Description: Update an existing order by ID.
   - Authorization: Token required.
 
