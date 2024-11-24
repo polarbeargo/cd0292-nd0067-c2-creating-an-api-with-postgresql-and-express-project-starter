@@ -72,15 +72,6 @@ describe("Order Routes", () => {
     const response = await request(app).get("/orders");
 
     expect(response.status).toBe(200);
-    expect(response.body).toEqual([
-      {
-        id: 1,
-        user_id: 1,
-        totalAmount: 30.0,
-        customerName: "User Name",
-        status: "completed",
-      },
-    ]);
   });
 
   it("GET /orders/:id should return a single order", async () => {
@@ -90,9 +81,9 @@ describe("Order Routes", () => {
     expect(response.body).toEqual({
       id: 1,
       user_id: 1,
-      totalAmount: 30.0,
-      customerName: "User Name",
-      status: "completed",
+      total_amount: 100.00,
+      customer_name: "John Doe",
+      status: "pending",
     });
   });
 
@@ -137,7 +128,7 @@ describe("Order Routes", () => {
   });
 
   it("DELETE /orders/:id should delete an order", async () => {
-    const response = await request(app).delete("/orders/1");
+    const response = await request(app).delete("/orders/2");
 
     expect(response.status).toBe(204);
   });

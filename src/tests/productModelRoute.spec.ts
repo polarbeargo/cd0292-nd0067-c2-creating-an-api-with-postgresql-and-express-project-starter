@@ -64,14 +64,14 @@ describe("Product Routes", () => {
   });
 
   it("GET /products/:id should return a single product", async () => {
-    const response = await request(app).get("/products/1");
+    const response = await request(app).get("/products/2");
 
     expect(response.status).toBe(200);
     expect(response.body).toEqual({
-      id: 1,
-      name: "Product A",
-      price: 100,
-      description: "Description",
+      id: 2,
+      name: "New Product",
+      price: 200.0,
+      description: "This is a new product",
     });
   });
 
