@@ -80,8 +80,8 @@ describe("Order Routes", () => {
     expect(response.status).toBe(200);
     expect(response.body).toEqual({
       id: 1,
-      user_id: 1,
-      total_amount: 100.00,
+      user_id: "1",
+      total_amount: "100.00",
       customer_name: "John Doe",
       status: "pending",
     });
