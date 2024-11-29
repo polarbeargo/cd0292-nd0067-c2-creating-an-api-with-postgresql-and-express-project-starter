@@ -2,6 +2,7 @@ import request from "supertest";
 import express from "express";
 import userRouteHandler from "../handlers/userRouteHandler";
 import { UserModel } from "../models/user";
+import { jest } from "@jest/globals";
 
 describe("User Routes", () => {
   let app: express.Application;
@@ -10,45 +11,38 @@ describe("User Routes", () => {
     app = express();
     app.use(express.json()); // Middleware to parse JSON
     userRouteHandler(app); // Register the routes
-    spyOn(UserModel.prototype, "index").and.returnValue(
-      Promise.resolve([
-        {
-          id: 1,
-          name: "John Doe",
-          username: "johndoe",
-          email: "john@example.com",
-          password: "hashed_password",
-        },
-      ]),
-    );
-    spyOn(UserModel.prototype, "show").and.returnValue(
-      Promise.resolve({
+
+    jest.spyOn(UserModel.prototype, "index").mockResolvedValue([
+      {
         id: 1,
-        name: "John Doe",
         username: "johndoe",
         email: "john@example.com",
         password: "hashed_password",
-      }),
-    );
-    spyOn(UserModel.prototype, "create").and.returnValue(
-      Promise.resolve({
-        id: 1,
-        name: "John Doe",
-        username: "johndoe",
-        email: "john@example.com",
-        password: "hashed_password",
-      }),
-    );
-    spyOn(UserModel.prototype, "update").and.returnValue(
-      Promise.resolve({
-        id: 1,
-        name: "John Doe",
-        username: "johndoe",
-        email: "john@example.com",
-        password: "hashed_password",
-      }),
-    );
-    spyOn(UserModel.prototype, "delete").and.returnValue(Promise.resolve());
+      },
+    ]);
+
+    jest.spyOn(UserModel.prototype, "show").mockResolvedValue({
+      id: 1,
+      username: "johndoe",
+      email: "john@example.com",
+      password: "hashed_password",
+    });
+
+    jest.spyOn(UserModel.prototype, "create").mockResolvedValue({
+      id: 1,
+      username: "johndoe",
+      email: "john@example.com",
+      password: "hashed_password",
+    });
+
+    jest.spyOn(UserModel.prototype, "update").mockResolvedValue({
+      id: 1,
+      username: "johndoe",
+      email: "john@example.com",
+      password: "hashed_password",
+    });
+
+    jest.spyOn(UserModel.prototype, "delete").mockResolvedValue();
   });
 
   it("GET /users should return a list of users", async () => {
@@ -124,9 +118,9 @@ describe("User Routes", () => {
   });
 
   it("should handle errors gracefully", async () => {
-    spyOn(UserModel.prototype, "index").and.callFake(() =>
-      Promise.reject(new Error("Database error")),
-    );
+    jest
+      .spyOn(UserModel.prototype, "index")
+      .mockRejectedValue(new Error("Database error"));
 
     const response = await request(app).get("/users");
 

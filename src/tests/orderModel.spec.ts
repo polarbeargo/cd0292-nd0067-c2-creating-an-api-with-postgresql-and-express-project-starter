@@ -40,7 +40,7 @@ describe("OrderModel", () => {
     const result = await orderModel.create(newOrder);
     expect(result).not.toBeNull();
     if (result !== null) {
-      expect(result.user_id).toEqual(newOrder.user_id);
+      expect(result.user_id.toString()).toEqual(newOrder.user_id.toString());
       expect(result.status).toEqual(newOrder.status);
     }
   });
