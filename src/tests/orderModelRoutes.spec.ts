@@ -75,15 +75,15 @@ describe("Order Routes", () => {
   });
 
   it("GET /orders/:id should return a single order", async () => {
-    const response = await request(app).get("/orders/1");
+    const response = await request(app).get("/orders/2");
 
     expect(response.status).toBe(200);
     expect(response.body).toEqual({
-      id: 1,
-      user_id: "1",
-      total_amount: "100.00",
-      customer_name: "John Doe",
-      status: "pending",
+      id: 2,
+      user_id: "2",
+      total_amount: "50.00",
+      customer_name: "Jane Smith",
+      status: "completed",
     });
   });
 

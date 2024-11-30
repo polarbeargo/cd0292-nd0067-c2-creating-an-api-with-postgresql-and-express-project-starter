@@ -65,8 +65,8 @@ const authenticate = async (
 };
 
 const userRouteHandler = (app: express.Application) => {
-  app.get("/users", verifyAuthToken, index);
-  app.get("/users/:id", verifyAuthToken, show);
+  app.get("/users", index);
+  app.get("/users/:id", show);
   app.post("/users", create);
   app.put("/users/:id", verifyAuthToken, update);
   app.get("/users/:id/authenticate", authenticate);

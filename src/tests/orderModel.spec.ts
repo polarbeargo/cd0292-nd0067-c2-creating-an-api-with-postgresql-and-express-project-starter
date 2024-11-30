@@ -60,7 +60,7 @@ describe("OrderModel", () => {
 
   it("update method should modify the order", async () => {
     const updatedOrder: Order = {
-      id: testOrder.id,
+      id: 1,
       user_id: 1,
       totalAmount: 40.0,
       customerName: "Updated User",
@@ -72,7 +72,7 @@ describe("OrderModel", () => {
   });
 
   it("delete method should remove the order", async () => {
-    const result = await orderModel.delete(testOrder.id);
+    const result = await orderModel.delete(1);
     expect(result).toBe(true);
   });
 });

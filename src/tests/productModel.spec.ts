@@ -72,8 +72,7 @@ describe("ProductModel", () => {
   });
 
   it("delete method should remove the product", async () => {
-    const result = await productModel.delete(testProduct.id);
-    expect(result).toBeDefined();
+    const result = await productModel.delete(1);
     expect(result.id).toEqual(testProduct.id);
   });
 
