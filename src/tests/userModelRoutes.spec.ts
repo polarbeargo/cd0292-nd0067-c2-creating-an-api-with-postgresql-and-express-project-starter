@@ -37,7 +37,7 @@ describe("User Routes", () => {
 
     jest.spyOn(UserModel.prototype, "update").mockResolvedValue({
       id: 1,
-      
+
       username: "johndoe",
       email: "john@example.com",
       password: "hashed_password",
@@ -53,7 +53,6 @@ describe("User Routes", () => {
     expect(response.body).toEqual([
       {
         id: 1,
-        name: "John Doe",
         username: "johndoe",
         email: "john@example.com",
         password: "hashed_password",
@@ -67,7 +66,6 @@ describe("User Routes", () => {
     expect(response.status).toBe(200);
     expect(response.body).toEqual({
       id: 1,
-      name: "John Doe",
       username: "johndoe",
       email: "john@example.com",
       password: "hashed_password",

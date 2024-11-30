@@ -59,7 +59,12 @@ describe("Product Routes", () => {
 
     expect(response.status).toBe(200);
     expect(response.body).toEqual([
-      { id: 2, name: "New Product", price: "200.00", description: "This is a new product" },
+      {
+        id: 2,
+        name: "New Product",
+        price: "200.00",
+        description: "This is a new product",
+      },
     ]);
   });
 

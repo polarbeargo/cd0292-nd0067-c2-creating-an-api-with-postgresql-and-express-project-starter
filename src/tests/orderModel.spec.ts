@@ -7,7 +7,6 @@ describe("OrderModel", () => {
   const orderModel = new OrderModel();
   const orderItemModel = new OrderItemModel();
   let testOrderItem: OrderItem;
-  let testOrder: Order;
 
   it("should have a create method", () => {
     expect(orderModel.create).toBeDefined();
@@ -46,10 +45,10 @@ describe("OrderModel", () => {
   });
 
   it("findById method should return the correct order", async () => {
-    const result = await orderModel.findById(testOrder.id);
+    const result = await orderModel.findById(2);
     expect(result).toBeDefined();
     if (result !== null) {
-      expect(result.id).toEqual(testOrder.id);
+      expect(result.id).toEqual(2);
     }
   });
 
@@ -66,7 +65,7 @@ describe("OrderModel", () => {
       customerName: "Updated User",
       status: "shipped",
     };
-    const result = await orderModel.update(testOrder.id, updatedOrder);
+    const result = await orderModel.update(1, updatedOrder);
     expect(result).not.toBeNull();
     expect(result!.status).toEqual(updatedOrder.status);
   });
