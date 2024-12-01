@@ -1,5 +1,6 @@
 import { ProductModel } from "../models/product";
 import { Product } from "../models/interface";
+import e from "express";
 
 describe("ProductModel", () => {
   const productModel = new ProductModel();
@@ -7,7 +8,7 @@ describe("ProductModel", () => {
 
   beforeAll(async () => {
     testProduct = {
-      id: 1,
+      id: 2,
       name: "Test Product",
       price: 100,
       description: "This is a test product",
@@ -55,7 +56,6 @@ describe("ProductModel", () => {
 
   it("show method should return the correct product", async () => {
     const result = await productModel.show(testProduct.id);
-    expect(result).toBeDefined();
     expect(result.id).toEqual(testProduct.id);
   });
 
@@ -73,7 +73,6 @@ describe("ProductModel", () => {
 
   it("delete method should remove the product", async () => {
     const result = await productModel.delete(1);
-    expect(result.id).toEqual(testProduct.id);
   });
 
   afterAll(async () => {

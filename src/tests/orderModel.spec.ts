@@ -59,11 +59,11 @@ describe("OrderModel", () => {
 
   it("update method should modify the order", async () => {
     const updatedOrder: Order = {
-      id: 1,
-      user_id: 1,
+      id: 3,
+      user_id: 3,
       totalAmount: 40.0,
       customerName: "Updated User",
-      status: "shipped",
+      status: "pending",
     };
     const result = await orderModel.update(1, updatedOrder);
     expect(result).not.toBeNull();

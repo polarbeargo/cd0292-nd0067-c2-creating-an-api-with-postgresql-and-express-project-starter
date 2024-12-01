@@ -52,6 +52,17 @@ export class ProductModel {
         product.description,
         id,
       ]);
+      console.log("Executing SQL:", sql, [
+        product.name,
+        product.price,
+        product.description,
+        id,
+      ]);
+
+      if (result.rows.length === 0) {
+        throw new Error(`No product found with id ${id}`);
+      }
+
       return result.rows[0];
     } catch (error) {
       console.error(`Error updating product with id ${id}:`, error);

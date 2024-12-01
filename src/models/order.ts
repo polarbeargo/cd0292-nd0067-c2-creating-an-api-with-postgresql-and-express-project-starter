@@ -45,7 +45,7 @@ export class OrderModel {
   async update(id: number, order: Order): Promise<Order | null> {
     const sql =
       "UPDATE orders SET customer_name = $1, total_amount = $2 WHERE id = $3 RETURNING *";
-    const values = [order.user_id, order.status, id];
+    const values = [order.customerName, order.totalAmount, id];
     try {
       const result = await database.query(sql, values);
       return result.rows[0] || null;

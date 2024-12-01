@@ -89,10 +89,10 @@ describe("Order Routes", () => {
 
   it("POST /orders should create a new order", async () => {
     const newOrder = {
-      id: 1,
-      user_id: 1,
+      id: 5,
+      user_id: 4,
       totalAmount: 30.0,
-      customerName: "User Name",
+      customerName: "ACME Inc.",
       status: "completed",
     };
     const response = await request(app).post("/orders").send(newOrder);
@@ -109,8 +109,8 @@ describe("Order Routes", () => {
 
   it("PUT /orders/:id should update an existing order", async () => {
     const updatedOrder = {
-      id: 1,
-      user_id: 1,
+      id: 2,
+      user_id: 2,
       totalAmount: 20.0,
       customerName: "Bob Smith",
       status: "completed",
