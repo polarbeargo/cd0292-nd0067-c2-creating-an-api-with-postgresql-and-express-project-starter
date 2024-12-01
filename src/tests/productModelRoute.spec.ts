@@ -39,18 +39,17 @@ const mockProductModel = {
   })),
   delete: jest.fn(() => true),
 };
-
-// Replace the ProductModel with the mock in the tests
-jest.mock("../models/product", () => ({
-  ProductModel: jest.fn(() => mockProductModel),
-}));
-
 describe("Product Routes", () => {
   let app: express.Application;
 
   beforeEach(() => {
     app = express();
     app.use(express.json()); // Middleware to parse JSON
+
+    // Replace the ProductModel with the mock in the tests
+    jest.mock("../models/product", () => ({
+      ProductModel: mockProductModel,
+    }));
     productRouteHandler(app); // Register the routes
   });
 
@@ -60,23 +59,29 @@ describe("Product Routes", () => {
     expect(response.status).toBe(200);
     expect(response.body).toEqual([
       {
-        id: 2,
+        description: "This is a test product",
+        id: 3,
+        name: "Test Product",
+        price: "100.00",
+      },
+      {
+        description: "This is a new product",
+        id: 4,
         name: "New Product",
         price: "200.00",
-        description: "This is a new product",
       },
     ]);
   });
 
   it("GET /products/:id should return a single product", async () => {
-    const response = await request(app).get("/products/2");
+    const response = await request(app).get("/products/1");
 
     expect(response.status).toBe(200);
     expect(response.body).toEqual({
-      id: 2,
-      name: "New Product",
-      price: "200.00",
-      description: "This is a new product",
+      id: 1,
+      name: "Product A",
+      price: 100,
+      description: "Description",
     });
   });
 
