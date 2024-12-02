@@ -134,16 +134,12 @@ describe("Order Routes", () => {
   });
 
   it("should handle errors gracefully", async () => {
-    // Override the findAll method to simulate an error
-    const originalFindAll = MockOrderModel.prototype.findAll;
-    MockOrderModel.prototype.findAll = () =>
-      Promise.reject(new Error("Database error"));
+    jest
+      .spyOn(OrderModel.prototype, "findAll")
+      .mockRejectedValue(new Error("Database error"));
 
     const response = await request(app).get("/orders");
 
     expect(response.status).toBe(500);
-
-    // Restore the original method
-    MockOrderModel.prototype.findAll = originalFindAll;
   });
 });

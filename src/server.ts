@@ -4,12 +4,13 @@ import productRouteHandler from "./handlers/productRouteHandler";
 import orderRouteHandler from "./handlers/orderRouteHandler";
 import userRouteHandler from "./handlers/userRouteHandler";
 import dashboardRoutes from "./handlers/dashboardQueriesRouteHandler";
+import { errorHandler } from "./middleware";
 
 const app: express.Application = express();
 const address: string = "0.0.0.0:3000";
 
 app.use(bodyParser.json());
-
+app.use(errorHandler);
 app.get("/", function (req: Request, res: Response) {
   res.send("Hello World!");
 });
