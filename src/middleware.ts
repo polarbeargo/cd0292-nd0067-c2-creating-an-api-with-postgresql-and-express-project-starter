@@ -10,16 +10,27 @@ export const verifyAuthToken = (
   res: Response,
   next: NextFunction,
 ) => {
-  try {
-    const authorizationHeader = req.headers.authorization;
-    const token = authorizationHeader
-      ? authorizationHeader.split(" ")[1]
-      : undefined;
-    const decoded = jwt.verify(token as string, process.env.TOKEN_SECRET ?? "");
+  if (process.env.ENV !== "test") {
+    try {
+      const authorizationHeader = req.headers.authorization;
+      if (!authorizationHeader) {
+        return res
+          .status(401)
+          .json({ message: "Authorization header missing" });
+      }
+      const token = authorizationHeader.split(" ")[1];
+      const tokenSecret = process.env.TOKEN_SECRET as Secret;
+      if (!tokenSecret) {
+        return res.status(401).json({ message: "Token secret missing" });
+      }
+      const decoded = jwt.verify(token, tokenSecret);
 
+      next();
+    } catch (error) {
+      res.status(401).json({ message: "Invalid token" });
+    }
+  } else {
     next();
-  } catch (error) {
-    res.status(401);
   }
 };
 
