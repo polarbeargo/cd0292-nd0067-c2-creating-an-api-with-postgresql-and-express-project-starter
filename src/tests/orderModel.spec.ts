@@ -32,8 +32,8 @@ describe("OrderModel", () => {
     const newOrder: Order = {
       id: 1,
       user_id: 1,
-      totalAmount: 30.0,
-      customerName: "User Name",
+      total_amount: 30.0,
+      customer_name: "User Name",
       status: "completed",
     };
     const result = await orderModel.create(newOrder);
@@ -61,8 +61,8 @@ describe("OrderModel", () => {
     const updatedOrder: Order = {
       id: 3,
       user_id: 3,
-      totalAmount: 40.0,
-      customerName: "Updated User",
+      total_amount: 40.0,
+      customer_name: "Updated User",
       status: "pending",
     };
     const result = await orderModel.update(1, updatedOrder);

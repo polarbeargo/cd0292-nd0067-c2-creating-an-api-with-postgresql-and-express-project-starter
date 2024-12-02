@@ -18,8 +18,8 @@ export interface Product {
 export interface Order {
   id: number;
   user_id: number; // Foreign key to User
-  totalAmount: number;
-  customerName: string;
+  total_amount: number;
+  customer_name: string;
   status: string; // e.g., 'pending', 'completed'
 }
 

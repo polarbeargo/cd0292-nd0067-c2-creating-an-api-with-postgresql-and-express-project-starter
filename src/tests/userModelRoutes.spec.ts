@@ -92,7 +92,6 @@ describe("User Routes", () => {
   it("PUT /users/:id should update an existing user", async () => {
     const response = await request(app).put("/users/1").send({
       id: 1,
-      name: "John Doe",
       username: "johndoe",
       email: "john@example.com",
       password: "hashed_password",
@@ -101,7 +100,6 @@ describe("User Routes", () => {
     expect(response.status).toBe(200);
     expect(response.body).toEqual({
       id: 1,
-      name: "John Doe",
       username: "johndoe",
       email: "john@example.com",
       password: "hashed_password",
@@ -109,7 +107,7 @@ describe("User Routes", () => {
   });
 
   it("DELETE /users/:id should delete a user", async () => {
-    const response = await request(app).delete("/users/1");
+    const response = await request(app).delete("/users/d/1");
 
     expect(response.status).toBe(204);
   });

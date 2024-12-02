@@ -7,8 +7,8 @@ export class OrderModel {
       "INSERT INTO orders ( user_id, total_amount, customer_name, status) VALUES ($1, $2, $3, $4) RETURNING *";
     const values = [
       order.user_id,
-      order.totalAmount,
-      order.customerName,
+      order.total_amount,
+      order.customer_name,
       order.status,
     ];
     try {
@@ -45,7 +45,9 @@ export class OrderModel {
   async update(id: number, order: Order): Promise<Order | null> {
     const sql =
       "UPDATE orders SET customer_name = $1, total_amount = $2 WHERE id = $3 RETURNING *";
-    const values = [order.customerName, order.totalAmount, id];
+    const values = [order.customer_name, order.total_amount, id];
+    console.log("Updating order with values:", values);
+
     try {
       const result = await database.query(sql, values);
       return result.rows[0] || null;

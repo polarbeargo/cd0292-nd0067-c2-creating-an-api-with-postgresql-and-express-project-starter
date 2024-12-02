@@ -56,7 +56,7 @@ const orderRouteHandler = (app: express.Application) => {
   app.get("/orders/:id", show);
   app.post("/orders", verifyAuthToken, create);
   app.put("/orders/:id", verifyAuthToken, update);
-  app.delete("/orders/:id", verifyAuthToken, destroy);
+  app.delete("/orders/d/:id", verifyAuthToken, destroy);
 };
 
 export default orderRouteHandler;

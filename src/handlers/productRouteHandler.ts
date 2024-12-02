@@ -47,10 +47,13 @@ const update = async (req: Request, res: Response, next: NextFunction) => {
 };
 
 const destroy = async (req: Request, res: Response, next: NextFunction) => {
+  console.log(`Attempting to delete product with ID: ${req.params.id}`);
   try {
     await productModel.delete(Number(req.params.id));
+    console.log(`Product with ID: ${req.params.id} deleted successfully.`);
     res.status(204).send();
   } catch (error) {
+    console.error("Error deleting product:", error);
     next(error);
   }
 };
@@ -60,7 +63,7 @@ const productRouteHandler = (app: express.Application) => {
   app.get("/products/:id", show);
   app.post("/products", verifyAuthToken, create);
   app.put("/products/:id", verifyAuthToken, update);
-  app.delete("/products/:id", verifyAuthToken, destroy);
+  app.delete("/products/d/:id", verifyAuthToken, destroy);
 };
 
 export default productRouteHandler;

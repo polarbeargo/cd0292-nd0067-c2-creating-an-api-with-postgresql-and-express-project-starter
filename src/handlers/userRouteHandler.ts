@@ -70,7 +70,7 @@ const userRouteHandler = (app: express.Application) => {
   app.post("/users", create);
   app.put("/users/:id", verifyAuthToken, update);
   app.get("/users/:id/authenticate", authenticate);
-  app.delete("/users/:id", verifyAuthToken, destroy);
+  app.delete("/users/d/:id", verifyAuthToken, destroy);
 };
 
 export default userRouteHandler;

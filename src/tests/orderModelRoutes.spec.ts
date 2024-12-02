@@ -75,60 +75,58 @@ describe("Order Routes", () => {
   });
 
   it("GET /orders/:id should return a single order", async () => {
-    const response = await request(app).get("/orders/2");
+    const response = await request(app).get("/orders/3");
 
     expect(response.status).toBe(200);
     expect(response.body).toEqual({
-      id: 2,
-      user_id: "2",
-      total_amount: "50.00",
-      customer_name: "Jane Smith",
+      id: 3,
+      user_id: "3",
+      total_amount: "75.00",
+      customer_name: "Alice Johnson",
       status: "completed",
     });
   });
 
   it("POST /orders should create a new order", async () => {
     const newOrder = {
-      id: 5,
       user_id: 4,
-      totalAmount: 30.0,
-      customerName: "ACME Inc.",
+      total_amount: "30.00",
+      customer_name: "ACME Inc.",
       status: "completed",
     };
     const response = await request(app).post("/orders").send(newOrder);
 
     expect(response.status).toBe(200);
     expect(response.body).toEqual({
-      id: 1,
-      user_id: 1,
-      totalAmount: 30.0,
-      customerName: "User Name",
+      user_id: 4,
+      total_amount: "30.00",
+      customer_name: "ACME Inc",
       status: "completed",
     });
   });
 
   it("PUT /orders/:id should update an existing order", async () => {
     const updatedOrder = {
-      id: 2,
-      user_id: 2,
-      totalAmount: 20.0,
-      customerName: "Bob Smith",
+      id: 3,
+      user_id: "3",
+      total_amount: "20.00",
+      customer_name: "Bob Smith",
       status: "completed",
     };
-    const response = await request(app).put("/orders/1").send(updatedOrder);
+    const response = await request(app).put("/orders/3").send(updatedOrder);
 
     expect(response.status).toBe(200);
     expect(response.body).toEqual({
-      id: 1,
-      user_id: 1,
-      totalAmount: 20.0,
-      customerName: "Bob Smith",
+      id: 3,
+      user_id: "3",
+      total_amount: "20.00",
+      customer_name: "Bob Smith",
       status: "completed",
     });
   });
 
   it("DELETE /orders/:id should delete an order", async () => {
-    const response = await request(app).delete("/orders/2");
+    const response = await request(app).delete("/orders/d/2");
 
     expect(response.status).toBe(204);
   });

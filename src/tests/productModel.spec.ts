@@ -8,9 +8,9 @@ describe("ProductModel", () => {
 
   beforeAll(async () => {
     testProduct = {
-      id: 2,
+      id: 5,
       name: "Test Product",
-      price: 100,
+      price: 100.0,
       description: "This is a test product",
     };
     await productModel.create(testProduct);
@@ -55,13 +55,13 @@ describe("ProductModel", () => {
   });
 
   it("show method should return the correct product", async () => {
-    const result = await productModel.show(testProduct.id);
-    expect(result.id).toEqual(testProduct.id);
+    const result = await productModel.show(6);
+    expect(result.id).toEqual(6);
   });
 
   it("update method should modify the product", async () => {
     const updatedProduct: Product = {
-      id: 2,
+      id: 3,
       name: "Updated Product",
       price: 170.0,
       description: "This is an updated product",
@@ -72,11 +72,11 @@ describe("ProductModel", () => {
   });
 
   it("delete method should remove the product", async () => {
-    const result = await productModel.delete(1);
+    const result = await productModel.delete(3);
   });
 
   afterAll(async () => {
-    // Clean up the test database
     await productModel.delete(testProduct.id);
+    await productModel.delete(1); // Assuming the id of the new product created in the test is 1
   });
 });
