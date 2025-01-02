@@ -102,6 +102,16 @@ db-migrate -e test reset
 db-migrate up --env test
 ```
 
+- Run the test suites
+
+  - In the `package.json` file, the test script is defined as follows:
+
+    ```
+    "test": ENV=test && npx tsc && db-migrate --env test up && jest && db-migrate db:drop full_stack_test",
+    ```
+
+  - Run the test suites by hitting debug in the `package.json` file.
+
 ### Software Design Patterns
 
 In this project, We have used the `Singleton` and the `Reactor` design patterns.
