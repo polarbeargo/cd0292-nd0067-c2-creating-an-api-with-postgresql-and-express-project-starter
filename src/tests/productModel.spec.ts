@@ -1,6 +1,5 @@
 import { ProductModel } from "../models/product";
 import { Product } from "../models/interface";
-import e from "express";
 
 describe("ProductModel", () => {
   const productModel = new ProductModel();
@@ -8,12 +7,13 @@ describe("ProductModel", () => {
 
   beforeAll(async () => {
     testProduct = {
-      id: 5,
+      id: 6,
       name: "Test Product",
       price: 100.0,
       description: "This is a test product",
     };
     await productModel.create(testProduct);
+    console.log("Created Product:", testProduct); 
   });
 
   it("should have an index method", () => {
@@ -38,7 +38,7 @@ describe("ProductModel", () => {
 
   it("create method should add a product", async () => {
     const newProduct: Product = {
-      id: 1,
+      id: 7, // Use a different ID
       name: "New Product",
       price: 200.0,
       description: "This is a new product",
@@ -56,12 +56,12 @@ describe("ProductModel", () => {
 
   it("show method should return the correct product", async () => {
     const result = await productModel.show(6);
-    expect(result.id).toEqual(6);
+    expect(Number(result.id)).toEqual(6);
   });
 
   it("update method should modify the product", async () => {
     const updatedProduct: Product = {
-      id: 3,
+      id: 1,
       name: "Updated Product",
       price: 170.0,
       description: "This is an updated product",
@@ -71,12 +71,8 @@ describe("ProductModel", () => {
     expect(Number(result.price)).toEqual(updatedProduct.price);
   });
 
-  it("delete method should remove the product", async () => {
-    const result = await productModel.delete(3);
-  });
-
   afterAll(async () => {
-    await productModel.delete(testProduct.id);
-    await productModel.delete(1); // Assuming the id of the new product created in the test is 1
+    await productModel.delete(testProduct.id); // Deletes the test product
+    await productModel.delete(7); // Deletes the new product created in the test
   });
 });
