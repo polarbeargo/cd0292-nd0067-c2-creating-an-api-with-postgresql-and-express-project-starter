@@ -13,7 +13,7 @@ describe("ProductModel", () => {
       description: "This is a test product",
     };
     await productModel.create(testProduct);
-    console.log("Created Product:", testProduct); 
+    console.log("Created Product:", testProduct);
   });
 
   it("should have an index method", () => {
@@ -55,8 +55,8 @@ describe("ProductModel", () => {
   });
 
   it("show method should return the correct product", async () => {
-    const result = await productModel.show(6);
-    expect(Number(result.id)).toEqual(6);
+    const result = await productModel.show(1);
+    expect(Number(result.id)).toEqual(1);
   });
 
   it("update method should modify the product", async () => {
