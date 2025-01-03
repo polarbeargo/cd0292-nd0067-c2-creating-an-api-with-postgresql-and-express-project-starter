@@ -9,3 +9,4 @@ CREATE TABLE products (
 -- Insert some products
 INSERT INTO products (name, price, description) VALUES ('Product 1', 100.00, 'Description of Product 1');
 INSERT INTO products (name, price, description) VALUES ('Product 2', 50.00, 'Description of Product 2');
+INSERT INTO products (name, price, description) VALUES ('Product 3', 25.00, 'Description of Product 3');
