@@ -7,7 +7,7 @@ describe("ProductModel", () => {
 
   beforeAll(async () => {
     testProduct = {
-      id: 6,
+      id: 3,
       name: "Test Product",
       price: 100.0,
       description: "This is a test product",
@@ -66,7 +66,7 @@ describe("ProductModel", () => {
       price: 170.0,
       description: "This is an updated product",
     };
-    const result = await productModel.update(testProduct.id, updatedProduct);
+    const result = await productModel.update(1, updatedProduct);
     expect(result.name).toEqual(updatedProduct.name);
     expect(Number(result.price)).toEqual(updatedProduct.price);
   });
